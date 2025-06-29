@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,6 +18,7 @@
             direction: rtl;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -28,15 +30,18 @@
             max-width: 95%;
             justify-content: center;
         }
+
         .shape-container {
             position: relative;
             width: 100px;
             height: 100px;
         }
+
         .triangle {
             width: 100%;
             height: 100%;
         }
+
         .square,
         .circle {
             width: 90px;
@@ -47,9 +52,11 @@
             top: 5px;
             left: 5px;
         }
+
         .circle {
             border-radius: 50%;
         }
+
         .orbiter {
             position: absolute;
             width: 16px;
@@ -60,6 +67,7 @@
             border: 10px solid #1C1F19;
             box-sizing: border-box;
         }
+
         .triangle-container .orbiter {
             top: 50%;
             left: 50%;
@@ -67,15 +75,18 @@
             transform: translate(-50%, -50%);
             border: 16px solid #1C1F19;
         }
+
         .square-container .orbiter {
             top: 0;
             left: 0;
             animation: orbitSquare 3s ease-in-out infinite;
             border: 16px solid #1C1F19;
         }
+
         .circle-container .orbiter {
             border: 16px solid #1C1F19;
         }
+
         .circle-wrapper {
             position: absolute;
             top: 50%;
@@ -86,49 +97,62 @@
             animation: orbitCircle 4s linear infinite;
             transform-origin: center;
         }
+
         .circle-wrapper .orbiter {
             transform: translate(0, -55px);
             animation: none;
         }
+
         @keyframes orbitTriangle {
             0% {
                 transform: translate(-30px, -60px);
             }
+
             33.33% {
                 transform: translate(30px, 20px);
             }
+
             66.67% {
                 transform: translate(-60px, 30px);
             }
+
             100% {
                 transform: translate(-30px, -60px);
             }
         }
+
         @keyframes orbitSquare {
             0% {
                 transform: translate(-15px, -15px);
             }
+
             25% {
                 transform: translate(75px, -15px);
             }
+
             50% {
                 transform: translate(75px, 75px);
             }
+
             75% {
                 transform: translate(-15px, 75px);
             }
+
             100% {
                 transform: translate(-15px, -15px);
             }
         }
+
         @keyframes orbitCircle {
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
         }
+
         /* ✅ العد التنازلي */
         #countdown {
             position: absolute;
@@ -147,14 +171,17 @@
             animation: fadeIn 1s ease-in;
             color: white;
         }
+
         .countdown-block {
             margin-bottom: 10px;
         }
+
         .label {
             font-size: 14px;
             color: #bbb;
             margin-bottom: 5px;
         }
+
         .countdown-number {
             font-size: 56px;
             font-weight: 900;
@@ -162,6 +189,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .countdown-time {
             display: flex;
             justify-content: center;
@@ -171,6 +199,7 @@
             border: none;
             padding: 0;
         }
+
         .time-box {
             display: flex;
             flex-direction: column;
@@ -181,33 +210,39 @@
             min-width: 60px;
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
+
         .time-box .num {
             font-size: 26px;
             font-weight: bold;
             color: white;
             font-family: monospace;
         }
+
         .time-box .unit {
             font-size: 12px;
             color: #bbb;
             margin-top: 4px;
         }
+
         .sep {
             font-size: 26px;
             font-weight: bold;
             color: #ffffff;
             margin-top: 10px;
         }
+
         @media (max-width: 500px) {
             .container {
                 gap: 50px;
                 padding: 40px;
                 width: 200px;
             }
+
             .shape-container {
                 width: 80px;
                 height: 80px;
             }
+
             .square,
             .circle {
                 width: 70px;
@@ -216,31 +251,38 @@
                 top: 4px;
                 left: 4px;
             }
+
             .orbiter {
                 width: 12px;
                 height: 12px;
                 padding: 6px;
                 border-width: 8px;
             }
+
             .circle-wrapper .orbiter {
                 transform: translate(0, -45px);
             }
+
             #countdown {
                 width: 80%;
                 font-size: 18px;
                 padding: 15px;
             }
+
             .countdown-number {
                 font-size: 42px;
             }
+
             .time-box {
                 min-width: 50px;
                 padding: 8px;
             }
+
             .time-box .num {
                 font-size: 20px;
             }
         }
+
         .time-box .unit {
             font-size: 13px;
             color: #ccc;
@@ -249,10 +291,11 @@
         }
     </style>
 </head>
+
 <body>
     <div id="countdown">
         <div class="countdown-block">
-            <div class="label" style="color: #C658FF; font-size: 20px ; font-weight: bold;">Days Left</div>
+            <div class="label" style="color: #C658FF; font-size: 20px ; font-weight: bold;">Time Since Release</div>
             <div id="days" class="countdown-number"></div>
         </div>
         <div id="time" class="countdown-time">
@@ -297,9 +340,9 @@
         const targetDate = new Date("2025-06-27T09:00:00+02:00").getTime();
         function updateCountdown() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            const distance = now - targetDate; // عكس العد التنازلي - نحسب الوقت اللي عدى
             if (distance <= 0) {
-                document.getElementById("countdown").innerHTML = "";
+                document.getElementById("countdown").innerHTML = "Just Released!";
                 return;
             }
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -315,4 +358,5 @@
         updateCountdown();
     </script>
 </body>
+
 </html>
